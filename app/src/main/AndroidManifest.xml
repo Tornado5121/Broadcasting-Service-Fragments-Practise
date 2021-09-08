@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.natife.example.project1">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
 
         android:allowBackup="true"
@@ -10,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
+
+        <service android:name=".services.MyService" />
 
         <receiver android:name=".broadcastrecievers.ItemBroadcastReceiver">
             <intent-filter>
@@ -26,9 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.DetailedActivity"
-            android:exported="true" />
+        <service android:name=".services.MyService" />
     </application>
 
 </manifest>

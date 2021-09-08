@@ -1,5 +1,6 @@
 package com.natife.example.project1.ui
 
+import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.natife.example.project1.R
 import com.natife.example.project1.broadcastrecievers.ItemBroadcastReceiver
 import com.natife.example.project1.databinding.ActivityMainBinding
+import com.natife.example.project1.services.MyService
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -23,16 +25,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             .commit()
 
         configureReceiver()
-
+        startService(Intent(this, MyService::class.java))
     }
 
     private fun configureReceiver() {
         val filter = IntentFilter()
-        filter.addAction("me.proft.sendbroadcast")
+        filter.addAction("com.natife.example.project1")
         receiver = ItemBroadcastReceiver()
         registerReceiver(receiver, filter)
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
