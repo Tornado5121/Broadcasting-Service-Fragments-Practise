@@ -20,20 +20,16 @@ class DetailedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailedBinding.inflate(inflater, container, false)
-
         val item = ItemsHolder.getById(itemId)
-
         binding.idTextView.text = item.id.toString()
         binding.nameTextView.text = item.name
         binding.descriptionTextView.text = item.description
-
         return binding.root
     }
 
     companion object {
 
         private const val KEY_ID = "id"
-
         fun newInstance(id: Int): DetailedFragment {
             return DetailedFragment().apply {
                 arguments = Bundle().apply {

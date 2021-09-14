@@ -56,7 +56,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             val id = intent.getIntExtra("id", -1)
             if (id >= 0) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.main_activity_fragment_container, DetailedFragment.newInstance(id))
+                    .replace(
+                        R.id.main_activity_fragment_container,
+                        DetailedFragment.newInstance(id)
+                    )
                     .addToBackStack("")
                     .remove(ItemListFragment())
                     .commit()

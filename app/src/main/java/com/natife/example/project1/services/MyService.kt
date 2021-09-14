@@ -3,13 +3,11 @@ package com.natife.example.project1.services
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.natife.example.project1.BuildConfig
 import com.natife.example.project1.R
-import com.natife.example.project1.ui.MainActivity
 
 
 class MyService : Service() {
@@ -41,7 +39,12 @@ class MyService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val intentMainLanding = Intent("com.project1.broadcast.MY_NOTIFICATION")
             val pendingIntent =
-                PendingIntent.getBroadcast(this, 0, intentMainLanding, PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.getBroadcast(
+                    this,
+                    0,
+                    intentMainLanding,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
             if (mNotificationManager == null) {
                 mNotificationManager =
                     this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -58,7 +61,6 @@ class MyService : Service() {
             }
 
             val builder = NotificationCompat.Builder(this, "service_channel")
-
             builder.setContentTitle(
                 StringBuilder("R.string.app_name").append(" service is running").toString()
             )
@@ -70,6 +72,5 @@ class MyService : Service() {
             notification = builder.build()
             startForeground(mNotificationId, notification)
         }
-
     }
 }
