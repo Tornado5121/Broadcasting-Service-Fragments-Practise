@@ -7,20 +7,24 @@ import android.content.Intent
 import com.natife.example.project1.ui.MainActivity
 
 class ItemBroadcastReceiver : BroadcastReceiver() {
+
+    val ID_KEY = "id"
+    val SHARED_PREF_FILE_NAME = "SharedPrefs"
+
     override fun onReceive(context: Context?, intent: Intent?) {
         context?.also {
             val id = getSharedPrefsId(it)
             val intent = Intent(it, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.putExtra("id", id)
+            intent.putExtra(ID_KEY, id)
             it.startActivity(intent)
         }
     }
 
     private fun getSharedPrefsId(context: Context): Int {
-        val sharedPref = context.getSharedPreferences("SharedPrefs", MODE_PRIVATE)
-        return sharedPref.getInt("id", -1)
+        val sharedPref = context.getSharedPreferences(SHARED_PREF_FILE_NAME, MODE_PRIVATE)
+        return sharedPref.getInt(ID_KEY, -1)
     }
 }
 

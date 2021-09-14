@@ -9,16 +9,15 @@ import com.natife.example.project1.databinding.ListAdapterItemBinding
 import com.natife.example.project1.models.Item
 
 class ItemAdapter(
-    private val click: (Item) -> Unit
+    private val onClick: (Item) -> Unit
 ) : ListAdapter<Item, ItemAdapter.ItemViewHolder>(ItemDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder.from(parent)
-
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(currentList[position], click)
+        holder.bind(currentList[position], onClick)
     }
 
     override fun onBindViewHolder(

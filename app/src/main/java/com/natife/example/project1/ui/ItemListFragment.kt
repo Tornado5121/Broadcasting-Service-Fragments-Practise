@@ -18,6 +18,9 @@ class ItemListFragment : Fragment() {
     private lateinit var binding: FragmentListItemBinding
     private lateinit var sharedPref: SharedPreferences
 
+    val ID_KEY = "id"
+    val SHARED_PREF_FILE_NAME = "SharedPrefs"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,9 +43,9 @@ class ItemListFragment : Fragment() {
 
     private fun saveData(id: Int): SharedPreferences {
 
-        sharedPref = requireActivity().getSharedPreferences("SharedPrefs", Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putInt("id", id)
+        editor.putInt(ID_KEY, id)
         editor.apply()
         return sharedPref
     }

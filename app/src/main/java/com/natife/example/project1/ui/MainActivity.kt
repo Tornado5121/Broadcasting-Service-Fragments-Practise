@@ -12,6 +12,8 @@ import com.natife.example.project1.services.MyService
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
+    val ID_INTENT_KEY = "id"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
@@ -22,27 +24,26 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             .add(R.id.main_activity_fragment_container, fragment)
             .commit()
         startService(Intent(this, MyService::class.java))
-        startDetailedFragment()
-
+        if (intent.hasExtra(ID_INTENT_KEY)) {
+            replaceDetailedFragment()
+        }
         registerReceiver(
             ItemBroadcastReceiver(),
             IntentFilter("com.natife.example.project1.MY_NOTIFICATION")
         )
     }
 
-    private fun startDetailedFragment() {
-        if (intent.hasExtra("id")) {
-            val id = intent.getIntExtra("id", -1)
-            if (id >= 0) {
-                supportFragmentManager.beginTransaction()
-                    .replace(
-                        R.id.main_activity_fragment_container,
-                        DetailedFragment.newInstance(id)
-                    )
-                    .addToBackStack("")
-                    .remove(ItemListFragment())
-                    .commit()
-            }
+    private fun replaceDetailedFragment() {
+        val id = intent.getIntExtra(ID_INTENT_KEY, -1)
+        if (id >= 0) {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.main_activity_fragment_container,
+                    DetailedFragment.newInstance(id)
+                )
+                .addToBackStack("")
+                .remove(ItemListFragment())
+                .commit()
         }
     }
 }

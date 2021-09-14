@@ -12,20 +12,16 @@ import com.natife.example.project1.R
 
 class MyService : Service() {
 
-    private val ACTION_STOP = "${BuildConfig.APPLICATION_ID}.stop"
+    val NOTIFICATION_CHANNEL_NAME = "Service Notifications"
+    val NOTIFICATION_CHANNEL_ID = "service_channel"
+    val NOTIFICATION_NAME = "Project1_notification"
+    val NOTIFICATION_TEXT = "Touch me"
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (intent?.action != null && intent.action.equals(
-                ACTION_STOP, ignoreCase = true
-            )
-        ) {
-            stopForeground(true)
-            stopSelf()
-        }
         generateForegroundNotification()
         return START_STICKY
     }
@@ -53,17 +49,15 @@ class MyService : Service() {
                 assert(mNotificationManager != null)
                 val notificationChannel =
                     NotificationChannel(
-                        "service_channel", "Service Notifications",
+                        NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME,
                         NotificationManager.IMPORTANCE_MIN
                     )
                 mNotificationManager?.createNotificationChannel(notificationChannel)
             }
 
             val builder = NotificationCompat.Builder(this, "service_channel")
-            builder.setContentTitle(
-                StringBuilder("R.string.app_name").append(" service is running").toString()
-            )
-                .setContentText("Touch to open")
+            builder.setContentTitle(NOTIFICATION_NAME)
+                .setContentText(NOTIFICATION_TEXT)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)
             notification = builder.build()
