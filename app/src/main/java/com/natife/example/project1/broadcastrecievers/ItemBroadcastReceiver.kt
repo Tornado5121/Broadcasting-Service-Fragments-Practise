@@ -1,18 +1,24 @@
 package com.natife.example.project1.broadcastrecievers
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.widget.Toast
+import android.content.*
+import android.content.Context.MODE_PRIVATE
+import com.natife.example.project1.ui.MainActivity
+import com.natife.example.project1.util.ItemsHolder
 
 class ItemBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "Broadcast Intent Detected", Toast.LENGTH_LONG).show()
 
-//        val intent = Intent(this@MainActivity, TimeReminderReceiver::class.java)
-//        val pendingIntent = PendingIntent.getBroadcast(this@MainActivity, 0, intent,
-//            PendingIntent.FLAG_UPDATE_CURRENT)
-//        val am = this@MainActivity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//        am.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        context?.also {
+            val id = getSharedPrefsId(it)
+            val intent = Intent(it, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("id", id)
+            it.startActivity(intent)
+        }
+    }
+
+    private fun getSharedPrefsId(context: Context): Int {
+        val sharedPref = context.getSharedPreferences("sharedPrefs", MODE_PRIVATE)
+        return sharedPref.getInt("id", -1)
     }
 }

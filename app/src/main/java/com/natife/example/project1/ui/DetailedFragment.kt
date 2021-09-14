@@ -23,7 +23,6 @@ class DetailedFragment : Fragment() {
 
         val item = ItemsHolder.getById(itemId)
 
-
         binding.idTextView.text = item.id.toString()
         binding.nameTextView.text = item.name
         binding.descriptionTextView.text = item.description
@@ -34,7 +33,6 @@ class DetailedFragment : Fragment() {
     companion object {
 
         private const val KEY_ID = "id"
-
         fun newInstance(id: Int): DetailedFragment {
             return DetailedFragment().apply {
                 arguments = Bundle().apply {
@@ -42,7 +40,5 @@ class DetailedFragment : Fragment() {
                 }
             }
         }
-
     }
-
 }

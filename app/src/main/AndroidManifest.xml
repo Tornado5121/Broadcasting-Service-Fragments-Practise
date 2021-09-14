@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.natife.example.project1">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
 
@@ -13,13 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
 
-        <service android:name=".services.MyService" />
-
-        <receiver android:name=".broadcastrecievers.ItemBroadcastReceiver">
-            <intent-filter>
-                <action android:name="com.natife.example.project1" />
-            </intent-filter>
-        </receiver>
+        <service
+            android:name=".services.MyService"
+            android:exported="true"/>
 
         <activity
             android:name=".ui.MainActivity"
@@ -30,7 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".services.MyService" />
+
+        <receiver
+            android:name=".broadcastrecievers.ItemBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.project1.broadcast.MY_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

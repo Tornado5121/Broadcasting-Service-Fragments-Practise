@@ -28,47 +28,30 @@ class ItemListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentListItemBinding.inflate(inflater, container, false)
-
-
         val adapter = ItemAdapter {
             saveData(it.id)
-            sendIntentBroadcast(it.id)
 
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.main_activity_fragment_container, DetailedFragment.newInstance(it.id))
-                ?.addToBackStack("")
-                ?.commit()
-
-//            startMyService(it.id)
+            it.id?.let { it1 -> DetailedFragment.newInstance(it1) }?.let { it2 ->
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.main_activity_fragment_container,
+                        it2
+                    )
+                    ?.addToBackStack("")
+                    ?.commit()
+            }
         }
         binding.itemList.layoutManager = LinearLayoutManager(activity)
         binding.itemList.adapter = adapter
         adapter.submitList(ItemsHolder.items)
 
-
-
         return binding.root
     }
 
-    fun saveData(id: Int) :SharedPreferences? {
+    fun saveData(id: Int?) :SharedPreferences? {
         sharedPref = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)!!
         sharedPref.edit {
-            putInt("id", id)
+            id?.let { putInt("id", it) }
         }
         return sharedPref
     }
-
-    fun sendIntentBroadcast(id: Int) {
-
-        val intentBroadcast = Intent("com.natife.example.project1")
-        intentBroadcast.putExtra("name", id)
-        activity?.sendBroadcast(intentBroadcast)
-    }
-
-//    fun startMyService(id: Int) {
-//        val intent = Intent(activity, MyService::class.java).also { intent ->
-//            intent.putExtra("id_item", )
-//            startMyService(intent)
-//        }
-//    }
 }
