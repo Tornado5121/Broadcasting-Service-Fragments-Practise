@@ -8,11 +8,11 @@ object ItemsHolder {
         createItem(it)
     }
 
-    fun getById(id: Int?): Item {
+    fun getById(id: Int): Item {
         return Item(id)
     }
 
-    private fun createItem(id: Int?): Item {
+    private fun createItem(id: Int): Item {
         return Item(id)
     }
 

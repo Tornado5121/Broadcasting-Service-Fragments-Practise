@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         configureReceiver()
         startService(Intent(this, MyService::class.java))
         onCallReciever()
+        startDetailedFragment()
     }
 
     private fun configureReceiver() {
@@ -44,6 +45,22 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     fun onCallReciever() {
         val broadcastReceiver = ItemBroadcastReceiver()
         LocalBroadcastManager.getInstance(this)
-            .registerReceiver(broadcastReceiver, IntentFilter("com.project1.broadcast.MY_NOTIFICATION"))
+            .registerReceiver(
+                broadcastReceiver,
+                IntentFilter("com.project1.broadcast.MY_NOTIFICATION")
+            )
+    }
+
+    private fun startDetailedFragment() {
+        if (intent.hasExtra("id")) {
+            val id = intent.getIntExtra("id", -1)
+            if (id >= 0) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_activity_fragment_container, DetailedFragment.newInstance(id))
+                    .addToBackStack("")
+                    .remove(ItemListFragment())
+                    .commit()
+            }
+        }
     }
 }

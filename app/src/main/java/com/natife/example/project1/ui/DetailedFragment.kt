@@ -33,6 +33,7 @@ class DetailedFragment : Fragment() {
     companion object {
 
         private const val KEY_ID = "id"
+
         fun newInstance(id: Int): DetailedFragment {
             return DetailedFragment().apply {
                 arguments = Bundle().apply {
