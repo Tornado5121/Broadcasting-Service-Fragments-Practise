@@ -7,9 +7,8 @@ import android.content.Intent
 import com.natife.example.project1.ui.MainActivity
 
 class ItemBroadcastReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent?) {
-
-        context.also {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        context?.also {
             val id = getSharedPrefsId(it)
             val intent = Intent(it, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -24,3 +23,6 @@ class ItemBroadcastReceiver : BroadcastReceiver() {
         return sharedPref.getInt("id", -1)
     }
 }
+
+
+

@@ -37,7 +37,7 @@ class MyService : Service() {
     private fun generateForegroundNotification() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val intentMainLanding = Intent("com.project1.broadcast.MY_NOTIFICATION")
+            val intentMainLanding = Intent("com.natife.example.project1.MY_NOTIFICATION")
             val pendingIntent =
                 PendingIntent.getBroadcast(
                     this,
@@ -56,7 +56,6 @@ class MyService : Service() {
                         "service_channel", "Service Notifications",
                         NotificationManager.IMPORTANCE_MIN
                     )
-                notificationChannel.lockscreenVisibility = Notification.VISIBILITY_SECRET
                 mNotificationManager?.createNotificationChannel(notificationChannel)
             }
 
@@ -66,9 +65,7 @@ class MyService : Service() {
             )
                 .setContentText("Touch to open")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
             notification = builder.build()
             startForeground(mNotificationId, notification)
         }

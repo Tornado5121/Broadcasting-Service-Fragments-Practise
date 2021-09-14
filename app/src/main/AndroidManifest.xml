@@ -18,8 +18,7 @@
             android:exported="true"/>
 
         <activity
-            android:name=".ui.MainActivity"
-            android:exported="true">
+            android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,9 +28,10 @@
 
         <receiver
             android:name=".broadcastrecievers.ItemBroadcastReceiver"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.project1.broadcast.MY_NOTIFICATION"/>
+                <action android:name="com.natife.example.project1.MY_NOTIFICATION"/>
             </intent-filter>
         </receiver>
 

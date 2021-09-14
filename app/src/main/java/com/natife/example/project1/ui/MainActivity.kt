@@ -5,15 +5,12 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.natife.example.project1.R
 import com.natife.example.project1.broadcastrecievers.ItemBroadcastReceiver
 import com.natife.example.project1.databinding.ActivityMainBinding
 import com.natife.example.project1.services.MyService
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-
-    var receiver: ItemBroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,31 +21,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         supportFragmentManager.beginTransaction()
             .add(R.id.main_activity_fragment_container, fragment)
             .commit()
-        configureReceiver()
         startService(Intent(this, MyService::class.java))
-        onCallReciever()
         startDetailedFragment()
-    }
 
-    private fun configureReceiver() {
-        val filter = IntentFilter()
-        filter.addAction("com.project1.broadcast.MY_NOTIFICATION")
-        receiver = ItemBroadcastReceiver()
-        registerReceiver(receiver, filter)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(receiver)
-    }
-
-    fun onCallReciever() {
-        val broadcastReceiver = ItemBroadcastReceiver()
-        LocalBroadcastManager.getInstance(this)
-            .registerReceiver(
-                broadcastReceiver,
-                IntentFilter("com.project1.broadcast.MY_NOTIFICATION")
-            )
+        registerReceiver(
+            ItemBroadcastReceiver(),
+            IntentFilter("com.natife.example.project1.MY_NOTIFICATION")
+        )
     }
 
     private fun startDetailedFragment() {
