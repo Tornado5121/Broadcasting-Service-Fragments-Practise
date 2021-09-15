@@ -31,7 +31,6 @@ class MyService : Service() {
     private val mNotificationId = 123
 
     private fun generateForegroundNotification() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val intentMainLanding = Intent("com.natife.example.project1.MY_NOTIFICATION")
             val pendingIntent =
