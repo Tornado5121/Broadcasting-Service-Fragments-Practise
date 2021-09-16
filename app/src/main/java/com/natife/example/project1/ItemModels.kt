@@ -2,13 +2,15 @@ package com.natife.example.project1
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
-import com.natife.example.project1.ui.DetailedFragment
+import com.natife.example.project1.models.Item
+import com.natife.example.project1.ui.adapters.ItemAdapter
+import com.natife.example.project1.util.ItemsHolder
 
 class ItemModels(context: Context) {
 
     val SHARED_PREF_FILE_NAME = "SharedPrefs"
-    val sharedPref: SharedPreferences = context.getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
+    val sharedPref: SharedPreferences =
+        context.getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
     val ID_KEY = "id"
 
     fun saveData(id: Int): SharedPreferences {
@@ -16,5 +18,9 @@ class ItemModels(context: Context) {
         editor.putInt(ID_KEY, id)
         editor.apply()
         return sharedPref
+    }
+
+    fun submitListToAdapter(): List<Item> {
+        return ItemsHolder.items
     }
 }

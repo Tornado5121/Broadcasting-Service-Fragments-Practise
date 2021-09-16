@@ -26,6 +26,7 @@ class ItemListFragment : Fragment() {
     ): View {
         itemPresenter = ItemPresenter(itemModels, requireContext())
         binding = FragmentListItemBinding.inflate(inflater, container, false)
+        itemPresenter.getListItems()
         return binding.root
     }
 
@@ -42,6 +43,6 @@ class ItemListFragment : Fragment() {
         }
         binding.itemList.layoutManager = LinearLayoutManager(activity)
         binding.itemList.adapter = adapter
-        adapter.submitList(ItemsHolder.items)
+        adapter.submitList(itemPresenter.getListItems())
     }
 }
