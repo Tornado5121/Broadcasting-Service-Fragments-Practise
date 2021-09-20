@@ -1,9 +1,10 @@
 package com.natife.example.project1.base
 
-import android.content.Context
+import com.natife.example.project1.models.Item
 
 interface ModelInterface {
 
-    fun getData() : Int
+    fun getItemId() : Int
     fun saveData(id:Int)
+    fun getDetailedItem(id: Int) : Item
 }

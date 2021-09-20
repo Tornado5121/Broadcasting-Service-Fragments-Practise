@@ -13,12 +13,11 @@ class ItemModels(context: Context) : ModelInterface {
     private val ID_KEY = "id"
 
     // prepare data for DetailedFragment
-    fun getDetailedItem() : Item {
-        val id = getData()
-        return ItemsHolder.getById(id)
+    override fun getDetailedItem(id: Int): Item {
+        return ItemsHolder.getById(getItemId())
     }
 
-    override fun getData(): Int {
+    override fun getItemId(): Int {
         return sharedPref.getInt("id", -1)
     }
 
