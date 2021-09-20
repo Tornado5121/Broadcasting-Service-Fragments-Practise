@@ -26,7 +26,7 @@ class DetailedFragment : Fragment(), DetailedView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailedPresenter.attachView(this)
-        detailedPresenter.getDetailedItem(view.id)
+        detailedPresenter.getDetailedItem(requireArguments().getInt(KEY_ID))
     }
 
     override fun showDetailedItem(item: Item) {

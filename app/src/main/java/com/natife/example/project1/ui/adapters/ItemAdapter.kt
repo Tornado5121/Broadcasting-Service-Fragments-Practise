@@ -20,14 +20,6 @@ class ItemAdapter(
         holder.bind(currentList[position], onClick)
     }
 
-    override fun onBindViewHolder(
-        holder: ItemViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        super.onBindViewHolder(holder, position, payloads)
-    }
-
     class ItemViewHolder(private val binding: ListAdapterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
