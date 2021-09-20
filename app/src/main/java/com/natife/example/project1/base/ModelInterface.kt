@@ -4,6 +4,6 @@ import android.content.Context
 
 interface ModelInterface {
 
-    fun getData(id:Int, context: Context) : Int
+    fun getData() : Int
     fun saveData(id:Int)
 }

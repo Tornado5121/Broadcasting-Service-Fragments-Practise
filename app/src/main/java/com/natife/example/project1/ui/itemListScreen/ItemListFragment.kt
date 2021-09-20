@@ -1,4 +1,4 @@
-package com.natife.example.project1.ui.ItemListScreen
+package com.natife.example.project1.ui.itemListScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.natife.example.project1.R
 import com.natife.example.project1.databinding.FragmentListItemBinding
 import com.natife.example.project1.models.Item
-import com.natife.example.project1.ui.DetailScreen.DetailedFragment
+import com.natife.example.project1.ui.detailScreen.DetailedFragment
 import com.natife.example.project1.ui.adapters.ItemAdapter
 
 class ItemListFragment : Fragment(), ItemListView {
@@ -46,12 +46,12 @@ class ItemListFragment : Fragment(), ItemListView {
         itemPresenter.getItems()
     }
 
+    override fun showItems(items: List<Item>) {
+        adapter.submitList(items)
+    }
+
     override fun onDestroyView() {
         itemPresenter.detachView()
         super.onDestroyView()
-    }
-
-    override fun showItems(items: List<Item>) {
-        adapter.submitList(items)
     }
 }

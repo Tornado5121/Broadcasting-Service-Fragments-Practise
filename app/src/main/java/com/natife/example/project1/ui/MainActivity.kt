@@ -9,8 +9,8 @@ import com.natife.example.project1.R
 import com.natife.example.project1.broadcastrecievers.ItemBroadcastReceiver
 import com.natife.example.project1.databinding.ActivityMainBinding
 import com.natife.example.project1.services.MyService
-import com.natife.example.project1.ui.DetailScreen.DetailedFragment
-import com.natife.example.project1.ui.ItemListScreen.ItemListFragment
+import com.natife.example.project1.ui.detailScreen.DetailedFragment
+import com.natife.example.project1.ui.itemListScreen.ItemListFragment
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 

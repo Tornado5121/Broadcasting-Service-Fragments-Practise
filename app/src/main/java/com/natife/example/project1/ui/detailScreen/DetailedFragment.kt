@@ -1,4 +1,4 @@
-package com.natife.example.project1.ui.DetailScreen
+package com.natife.example.project1.ui.detailScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,17 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.natife.example.project1.databinding.FragmentDetailedBinding
 import com.natife.example.project1.models.Item
-import com.natife.example.project1.util.ItemsHolder
 
-class DetailedFragment : Fragment()  {
+class DetailedFragment : Fragment(), DetailedView {
 
-    private val itemId: Int by lazy {
-        arguments?.getInt(KEY_ID) ?: throw IllegalStateException("No id passed")
+    private val detailedPresenter by lazy {
+        DetailScreenPresenter(requireContext())
     }
-
-    private lateinit var detailedPresenter: DetailScreenPresenter
     private lateinit var binding: FragmentDetailedBinding
-    var item : Item? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,32 +25,24 @@ class DetailedFragment : Fragment()  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showDetailed()
+        detailedPresenter.attachView(this)
+        detailedPresenter.getDetailedItem()
     }
 
-     fun showDetailedInfo() {
-        binding.idTextView.text = item?.id.toString()
-        binding.nameTextView.text = item?.name
-        binding.descriptionTextView.text = item?.description
+    override fun showDetailedItem(item: Item) {
+        binding.idTextView.text = item.id.toString()
+        binding.nameTextView.text = item.name
+        binding.descriptionTextView.text = item.description
     }
 
-    fun showDetailed() {
-        detailedPresenter.showDetailedView(requireContext())
-    }
-
-    override fun onDetach() {
-        super.onDetach()
+    override fun onDestroyView() {
         detailedPresenter.detachView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        detailedPresenter.destroy()
+        super.onDestroyView()
     }
 
     companion object {
 
-        const val KEY_ID = "id"
+        private const val KEY_ID = "id"
         fun newInstance(id: Int): DetailedFragment {
             return DetailedFragment().apply {
                 arguments = Bundle().apply {

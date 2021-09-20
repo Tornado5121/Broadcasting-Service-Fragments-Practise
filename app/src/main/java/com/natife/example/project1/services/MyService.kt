@@ -58,6 +58,7 @@ class MyService : Service() {
             builder.setContentTitle(NOTIFICATION_NAME)
                 .setContentText(NOTIFICATION_TEXT)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
             notification = builder.build()
             startForeground(mNotificationId, notification)
