@@ -6,16 +6,14 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import com.natife.example.project1.BuildConfig
 import com.natife.example.project1.R
-
 
 class MyService : Service() {
 
-    val NOTIFICATION_CHANNEL_NAME = "Service Notifications"
-    val NOTIFICATION_CHANNEL_ID = "service_channel"
-    val NOTIFICATION_NAME = "Project1_notification"
-    val NOTIFICATION_TEXT = "Touch me"
+    private val NOTIFICATION_CHANNEL_NAME = "Service Notifications"
+    private val NOTIFICATION_CHANNEL_ID = "service_channel"
+    private val NOTIFICATION_NAME = "Project1_notification"
+    private val NOTIFICATION_TEXT = "Touch me"
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -27,7 +25,7 @@ class MyService : Service() {
     }
 
     private var notification: Notification? = null
-    var mNotificationManager: NotificationManager? = null
+    private var mNotificationManager: NotificationManager? = null
     private val mNotificationId = 123
 
     private fun generateForegroundNotification() {

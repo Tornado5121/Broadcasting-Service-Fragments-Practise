@@ -8,8 +8,8 @@ import com.natife.example.project1.ui.MainActivity
 
 class ItemBroadcastReceiver : BroadcastReceiver() {
 
-    val ID_KEY = "id"
-    val SHARED_PREF_FILE_NAME = "SharedPrefs"
+    private val ID_KEY = "id"
+    private val SHARED_PREF_FILE_NAME = "SharedPrefs"
 
     override fun onReceive(context: Context?, intent: Intent?) {
         context?.also {

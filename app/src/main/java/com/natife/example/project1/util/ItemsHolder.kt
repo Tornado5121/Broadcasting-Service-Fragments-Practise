@@ -15,5 +15,4 @@ object ItemsHolder {
     private fun createItem(id: Int): Item {
         return Item(id)
     }
-
 }

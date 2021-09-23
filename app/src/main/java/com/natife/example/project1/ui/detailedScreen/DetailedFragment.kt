@@ -1,20 +1,13 @@
-package com.natife.example.project1.ui
+package com.natife.example.project1.ui.detailedScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.natife.example.project1.ItemModels
 import com.natife.example.project1.databinding.FragmentDetailedBinding
-import com.natife.example.project1.presenters.ItemPresenter
-import com.natife.example.project1.util.ItemsHolder
 
 class DetailedFragment : Fragment() {
-
-    private val itemId: Int by lazy {
-        arguments?.getInt(KEY_ID) ?: throw IllegalStateException("No id passed")
-    }
 
     private lateinit var binding: FragmentDetailedBinding
 
@@ -28,14 +21,16 @@ class DetailedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val item = ItemsHolder.getById(itemId)
-        binding.idTextView.text = item.id.toString()
-        binding.nameTextView.text = item.name
-        binding.descriptionTextView.text = item.description
+        val detailedFragmentViewModel = DetailedFragmentViewModel(requireContext())
+        arguments?.let { detailedFragmentViewModel.getDetailedItem(it.getInt(KEY_ID)) }
+        detailedFragmentViewModel.detailedItemToAttach.observe(viewLifecycleOwner, {
+            binding.idTextView.text = it.id.toString()
+            binding.nameTextView.text = it.name
+            binding.descriptionTextView.text = it.description
+        })
     }
 
     companion object {
-
         const val KEY_ID = "id"
         fun newInstance(id: Int): DetailedFragment {
             return DetailedFragment().apply {
