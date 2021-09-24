@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.natife.example.project1.databinding.FragmentDetailedBinding
-import com.natife.example.project1.ui.itemListScreen.ItemListFragmentViewModel
 
 class DetailedFragment : Fragment() {
 

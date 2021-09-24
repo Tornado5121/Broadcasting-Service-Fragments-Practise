@@ -3,7 +3,6 @@ package com.natife.example.project1.models
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.natife.example.project1.models.Item
 import com.natife.example.project1.util.ItemsHolder
 
 class ItemRepository(context: Context) {
