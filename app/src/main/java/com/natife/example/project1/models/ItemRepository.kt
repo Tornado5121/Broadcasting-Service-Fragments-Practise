@@ -2,6 +2,7 @@ package com.natife.example.project1.models
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.natife.example.project1.models.Item
 import com.natife.example.project1.util.ItemsHolder
 
@@ -12,11 +13,10 @@ class ItemRepository(context: Context) {
         context.getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
     private val ID_KEY = "id"
 
-    fun saveData(id: Int): SharedPreferences {
-        val editor = sharedPref.edit()
-        editor.putInt(ID_KEY, id)
-        editor.apply()
-        return sharedPref
+    fun saveData(id: Int) {
+        sharedPref.edit {
+            putInt(ID_KEY, id)
+        }
     }
 
     fun getItems(): List<Item> {

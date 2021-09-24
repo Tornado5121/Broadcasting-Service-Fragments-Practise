@@ -14,7 +14,7 @@ import com.natife.example.project1.ui.itemListScreen.ItemListFragment
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    val ID_INTENT_KEY = "id"
+    private val ID_INTENT_KEY = "id"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

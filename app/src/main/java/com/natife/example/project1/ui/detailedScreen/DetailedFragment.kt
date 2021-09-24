@@ -5,10 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.natife.example.project1.databinding.FragmentDetailedBinding
+import com.natife.example.project1.ui.itemListScreen.ItemListFragmentViewModel
 
 class DetailedFragment : Fragment() {
 
+
+    private val detailedFragmentViewModel: DetailedFragmentViewModel by lazy {
+        ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return DetailedFragmentViewModel(requireContext()) as T
+            }
+        }).get(DetailedFragmentViewModel::class.java)
+    }
     private lateinit var binding: FragmentDetailedBinding
 
     override fun onCreateView(
@@ -21,7 +32,6 @@ class DetailedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val detailedFragmentViewModel = DetailedFragmentViewModel(requireContext())
         arguments?.let { detailedFragmentViewModel.getDetailedItem(it.getInt(KEY_ID)) }
         detailedFragmentViewModel.detailedItemToAttach.observe(viewLifecycleOwner, {
             binding.idTextView.text = it.id.toString()
