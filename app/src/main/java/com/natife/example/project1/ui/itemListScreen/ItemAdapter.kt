@@ -1,4 +1,4 @@
-package com.natife.example.project1.ui.adapters
+package com.natife.example.project1.ui.itemListScreen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
