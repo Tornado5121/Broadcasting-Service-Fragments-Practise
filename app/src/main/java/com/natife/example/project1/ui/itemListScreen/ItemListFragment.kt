@@ -1,7 +1,5 @@
 package com.natife.example.project1.ui.itemListScreen
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,27 +11,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.natife.example.project1.R
 import com.natife.example.project1.databinding.FragmentListItemBinding
 import com.natife.example.project1.ui.detailedScreen.DetailedFragment
+import com.natife.example.project1.ui.itemListScreen.usecases.DisplayItemListUseCase
+import com.natife.example.project1.ui.itemListScreen.usecases.SaveDataUseCase
 
 class ItemListFragment : Fragment() {
 
-    val ID_KEY = "id"
-    val SHARED_PREF_FILE_NAME = "SharedPrefs"
+    private val itemListreducer: ItemListReducer by lazy { ItemListReducer() }
+    private val displayItemListUseCase: DisplayItemListUseCase by lazy { DisplayItemListUseCase() }
+    private val saveDataUseCase: SaveDataUseCase by lazy { SaveDataUseCase(requireContext()) }
 
-    private val itemListreducer: ItemListReducer = ItemListReducer()
-    private val displayItemListUseCase: DisplayItemListUseCase = DisplayItemListUseCase()
     private lateinit var binding: FragmentListItemBinding
-    private lateinit var sharedPref: SharedPreferences
 
     private val itemListViewModel: ItemListViewModel by lazy {
         ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ItemListViewModel(itemListreducer, displayItemListUseCase) as T
+                return ItemListViewModel(
+                    itemListreducer,
+                    listOf(displayItemListUseCase, saveDataUseCase)
+                ) as T
             }
         }).get(ItemListViewModel::class.java)
     }
 
     val adapter = ItemAdapter {
-        saveData(it.id)
+        itemListViewModel.saveIdItemToSharedPrefs(it.id)
 
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_activity_fragment_container, DetailedFragment.newInstance(it.id))
@@ -56,21 +57,12 @@ class ItemListFragment : Fragment() {
         init()
     }
 
-    private fun renderState(newState: MyItemsStates) {
-        adapter.submitList(newState.itemListDisplayed)
-    }
-
     private fun init() {
         binding.itemList.layoutManager = LinearLayoutManager(activity)
         binding.itemList.adapter = adapter
     }
 
-    private fun saveData(id: Int): SharedPreferences {
-        sharedPref =
-            requireActivity().getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putInt(ID_KEY, id)
-        editor.apply()
-        return sharedPref
+    private fun renderState(newState: MyItemsStates) {
+        adapter.submitList(newState.itemListDisplayed)
     }
 }

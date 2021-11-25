@@ -11,6 +11,8 @@ class ItemListReducer : Reducer<MyItemsStates, MyItemsActions> {
             MyItemsActions.None -> state
             is MyItemsActions.ItemsLoaded -> state.copy(itemListDisplayed = action.items)
             is MyItemsActions.Error -> state
+            is MyItemsActions.Save -> state
+            is MyItemsActions.DataSaved -> state
         }
     }
 }

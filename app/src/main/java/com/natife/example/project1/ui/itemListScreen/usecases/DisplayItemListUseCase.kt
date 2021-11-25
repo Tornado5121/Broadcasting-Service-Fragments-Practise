@@ -1,7 +1,9 @@
-package com.natife.example.project1.ui.itemListScreen
+package com.natife.example.project1.ui.itemListScreen.usecases
 
 import com.natife.example.project1.base.UseCase
 import com.natife.example.project1.models.Item
+import com.natife.example.project1.ui.itemListScreen.MyItemsActions
+import com.natife.example.project1.ui.itemListScreen.MyItemsStates
 import com.natife.example.project1.util.ItemsHolder
 
 class DisplayItemListUseCase : UseCase<MyItemsStates, MyItemsActions> {
