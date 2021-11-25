@@ -7,22 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.natife.example.project1.R
 import com.natife.example.project1.databinding.FragmentListItemBinding
 import com.natife.example.project1.ui.detailedScreen.DetailedFragment
-import com.natife.example.project1.util.ItemsHolder
 
 class ItemListFragment : Fragment() {
 
+    val ID_KEY = "id"
+    val SHARED_PREF_FILE_NAME = "SharedPrefs"
 
     private val itemListreducer: ItemListReducer = ItemListReducer()
     private val displayItemListUseCase: DisplayItemListUseCase = DisplayItemListUseCase()
     private lateinit var binding: FragmentListItemBinding
     private lateinit var sharedPref: SharedPreferences
-    private val viewModel: ItemListViewModel = ItemListViewModel(itemListreducer, displayItemListUseCase)
-    val ID_KEY = "id"
-    val SHARED_PREF_FILE_NAME = "SharedPrefs"
+
+    private val itemListViewModel: ItemListViewModel by lazy {
+        ViewModelProvider(viewModelStore, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ItemListViewModel(itemListreducer, displayItemListUseCase) as T
+            }
+        }).get(ItemListViewModel::class.java)
+    }
 
     val adapter = ItemAdapter {
         saveData(it.id)
@@ -43,8 +51,8 @@ class ItemListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.displayItemList()
-        viewModel.state.observe(viewLifecycleOwner, ::renderState)
+        itemListViewModel.displayItemList()
+        itemListViewModel.state.observe(viewLifecycleOwner, ::renderState)
         init()
     }
 
@@ -58,7 +66,8 @@ class ItemListFragment : Fragment() {
     }
 
     private fun saveData(id: Int): SharedPreferences {
-        sharedPref = requireActivity().getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
+        sharedPref =
+            requireActivity().getSharedPreferences(SHARED_PREF_FILE_NAME, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putInt(ID_KEY, id)
         editor.apply()

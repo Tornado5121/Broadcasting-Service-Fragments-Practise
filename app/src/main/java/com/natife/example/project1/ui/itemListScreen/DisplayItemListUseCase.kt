@@ -2,8 +2,6 @@ package com.natife.example.project1.ui.itemListScreen
 
 import com.natife.example.project1.base.UseCase
 import com.natife.example.project1.models.Item
-import com.natife.example.project1.ui.itemListScreen.MyItemsActions
-import com.natife.example.project1.ui.itemListScreen.MyItemsStates
 import com.natife.example.project1.util.ItemsHolder
 
 class DisplayItemListUseCase : UseCase<MyItemsStates, MyItemsActions> {
@@ -20,7 +18,7 @@ class DisplayItemListUseCase : UseCase<MyItemsStates, MyItemsActions> {
         return action is MyItemsActions.GetItems
     }
 
-    fun createItems() : List<Item> {
+    fun createItems(): List<Item> {
         return ItemsHolder.items
     }
 }

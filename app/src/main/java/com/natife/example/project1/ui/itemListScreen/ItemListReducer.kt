@@ -7,9 +7,10 @@ class ItemListReducer : Reducer<MyItemsStates, MyItemsActions> {
 
     override fun reduce(state: MyItemsStates, action: MyItemsActions): MyItemsStates {
         return when (action) {
-            MyItemsActions.None -> state
             MyItemsActions.GetItems -> state
+            MyItemsActions.None -> state
             is MyItemsActions.ItemsLoaded -> state.copy(itemListDisplayed = action.items)
+            is MyItemsActions.Error -> state
         }
     }
 }
