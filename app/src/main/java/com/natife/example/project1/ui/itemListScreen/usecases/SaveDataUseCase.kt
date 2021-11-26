@@ -17,7 +17,7 @@ class SaveDataUseCase(context: Context) : UseCase<MyItemsStates, MyItemsActions>
     override fun execute(state: MyItemsStates, action: MyItemsActions): MyItemsActions {
         return if (action is MyItemsActions.Save) {
             saveData(action.id)
-            MyItemsActions.DataSaved(sharedPref.getInt(ID_KEY,-1))
+            MyItemsActions.DataSaved
         } else {
             MyItemsActions.None
         }

@@ -9,6 +9,6 @@ sealed class MyItemsActions {
     data class Error(val error: Exception) : MyItemsActions()
 
     data class Save(val id: Int) : MyItemsActions()
-    data class DataSaved(val id: Int) : MyItemsActions()
+    object DataSaved : MyItemsActions()
 }
 
